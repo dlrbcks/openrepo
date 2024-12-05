@@ -82,7 +82,7 @@ int main() {
 			// 선인장(장애물)이 왼쪽으로 (x음수) 가도록하고
 			// 선인장(장애물)의 위치가 왼쪽 끝으로가면 다시 오른쪽 끝으로 소환.
 			cactus_X -= 2;
-			if (cactus_X <= 0) cactus_X = CACTUS_BOTTOM_X;
+			if (cactus_X <= 0) cactus_X = CACTUS_BOTTOM_X; // 선인장 이동
 
 			DrawDino(dino_Y);         // 공룡 그리기
 			DrawCactus(cactus_X);     // 선인장 그리기
