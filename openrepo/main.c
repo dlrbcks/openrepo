@@ -134,7 +134,10 @@ int IsCollision(const int cactus_X, const int dino_Y) {
 	// 공룡의 높이가 충분하지 않다면 충돌로 처리
 	GotoXY(0, 0);
 	printf("cactusX : %2d, dinoY : %2d", cactus_X, dino_Y); // 이런식으로 적절한 X, Y를 찾습니다.
-	if (cactus_X <= 8 && cactus_X >= 2 && dino_Y > 12) return true;
+	if (cactus_X <= 8 && cactus_X >= 2 && dino_Y > 12)
+	{
+		return true;
+	}
 	return false;
 }
 
