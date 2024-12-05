@@ -46,7 +46,7 @@ int main() {
 		// 게임 시작시 초기화
 		int isJumping = false;
 		int isBottom = true;
-		const int gravity = 3;
+		const int gravity = 2;  // 변경: 더 낮은 값으로 조정
 
 		int dino_Y = DINO_BOTTOM_Y;
 		int cactus_X = CACTUS_BOTTOM_X;
@@ -62,19 +62,28 @@ int main() {
 			// Space키가 눌렸고, 바닥이 아닐때 점프
 			// Space Key ASCII : 32
 			if (GetKeyDown() == ' ' && isBottom) {
-				isJumping = true;
+				isJumping = true; // 점프시작
 				isBottom = false;
 			}
 
-			// 점프중이라면 Y를 감소, 점프가 끝났으면 Y를 증가.
-			if (isJumping) dino_Y -= gravity;
-			else dino_Y += gravity;
+			// 기존 점프 로직에서 최고점 조정
 
-			// Y가 계속해서 증가하는걸 막기위해 바닥을 지정.
+			if (isJumping) {
+				dino_Y -= gravity;  // 점프 중 위로
+				if (dino_Y <= 3) {  // 점프 최고점 도달
+					isJumping = false;  // 최고점에 도달하면 내려가도록
+				}
+			}
+			else {
+				dino_Y += gravity;  // 점프 후 중력에 의해 아래로
+			}
+
+			// 바닥에 닿으면 더 이상 내려가지 않음
 			if (dino_Y >= DINO_BOTTOM_Y) {
-				dino_Y = DINO_BOTTOM_Y;
+				dino_Y = DINO_BOTTOM_Y;  // 바닥에 고정
 				isBottom = true;
 			}
+
 
 			// 점프의 맨위를 찍으면 점프가 끝난 상황.
 			if (dino_Y <= 3) isJumping = false;
@@ -101,8 +110,10 @@ int main() {
 			SetColor(WHITE);
 			// 점수출력을 1초마다 해주는 것이 아니라 항상 출력 해주면서, 1초가 지났을때 ++ 해줍니다.
 			// 커서를 가운데 위쪽으로 옮긴다. 콘솔창이 cols=100 이니까 2*x이므로 22정도 넣어줌
-			GotoXY(22, 0); printf("Score : %d ", score);     // 점수 출력해줌.
-			GotoXY(20, 2); printf("점프 : Space Key");
+			GotoXY(22, 0); 
+			printf("Score : %d ", score);     // 점수 출력해줌.
+			GotoXY(20, 2); 
+			printf("점프 : Space Key"); // 기능키
 		}
 		// 게임 오버 메뉴
 		DrawGameOver(score);
@@ -254,3 +265,5 @@ void UpdateScore(clock_t* start, clock_t* curr, int* score) {
 		*start = clock();
 	}
 }
+
+
