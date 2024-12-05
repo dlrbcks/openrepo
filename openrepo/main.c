@@ -224,10 +224,11 @@ void DrawGameOver(const int score) {
 	system("cls");
 }
 
-void ClearDino(int dino_Y) {
-	GotoXY(0, dino_Y);
-	for (int i = 0; i < 12; i++) printf("                \n"); // 공백(스페이스바) 16개
-	printf("                ");  // 공백(스페이스바) 16개
+void ClearDino(int dino_y) {
+	for (int i = 0; i < 12; i++) {
+		GotoXY(0, dino_y + i);
+		printf("                ");
+	}
 }
 
 void ClearCactus(int cactus_X) {
