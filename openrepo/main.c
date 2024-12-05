@@ -46,7 +46,7 @@ int main() {
 		// 게임 시작시 초기화
 		int isJumping = false;
 		int isBottom = true;
-		const int gravity = 3;
+		const int gravity = 2;  // 변경: 더 낮은 값으로 조정
 
 		int dino_Y = DINO_BOTTOM_Y;
 		int cactus_X = CACTUS_BOTTOM_X;
