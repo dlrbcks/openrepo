@@ -220,8 +220,8 @@ void DrawGameOver(const int score) {
 	printf("SCORE : %d", score);
 
 	printf("\n\n\n\n\n\n\n\n\n");
-	system("pause");
-	system("cls");
+	system("pause"); // 게임 오버 후 대기
+	system("cls"); // 화면 초기화
 }
 
 // Clear 함수는 기존의 전체 화면 지우기를 최소화하도록 수정합니다.
