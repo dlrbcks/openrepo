@@ -7,16 +7,16 @@
 #define CACTUS_BOTTOM_Y 25   // 선인장 X 위치
 #define CACTUS_BOTTOM_X 45   // 선인장 Y 위치
 
-void ClearDino(int dinoY);     // 공룡그린 것 지움
-void ClearCactus(int cactusX); // 선인장(장애물) 그런 것 지움
+void ClearDino(int dino_Y);     // 공룡그린 것 지움
+void ClearCactus(int cactus_X); // 선인장(장애물) 그런 것 지움
 
 void CursorView(char show);
 void SetColor(unsigned short text);
 void SetConsoleView();
-void DrawDino(int dinoY);
+void DrawDino(int dino_Y);
 void GotoXY(int x, int y);
-void DrawCactus(int cactusX);
-int IsCollision(const int cactusX, const int dinoY);
+void DrawCactus(int cactus_X);
+int IsCollision(const int cactus_X, const int dino_Y);
 int GetKeyDown();
 void DrawGameOver(const int score);
 
@@ -48,8 +48,8 @@ int main() {
 		int isBottom = true;
 		const int gravity = 3;
 
-		int dinoY = DINO_BOTTOM_Y;
-		int cactusX = CACTUS_BOTTOM_X;
+		int dino_Y = DINO_BOTTOM_Y;
+		int cactus_X = CACTUS_BOTTOM_X;
 
 		int score = 0;
 		clock_t start, curr;    // 점수 변수 초기화
@@ -57,7 +57,7 @@ int main() {
 
 		while (true) { // 게임 한 판에 대한 루프
 			// 충돌체크 트리의 x값과 공룡의 y값으로 판단
-			if (IsCollision(cactusX, dinoY)) break;
+			if (IsCollision(cactus_X, dino_Y)) break;
 
 			// Space키가 눌렸고, 바닥이 아닐때 점프
 			// Space Key ASCII : 32
@@ -67,25 +67,25 @@ int main() {
 			}
 
 			// 점프중이라면 Y를 감소, 점프가 끝났으면 Y를 증가.
-			if (isJumping) dinoY -= gravity;
-			else dinoY += gravity;
+			if (isJumping) dino_Y -= gravity;
+			else dino_Y += gravity;
 
 			// Y가 계속해서 증가하는걸 막기위해 바닥을 지정.
-			if (dinoY >= DINO_BOTTOM_Y) {
-				dinoY = DINO_BOTTOM_Y;
+			if (dino_Y >= DINO_BOTTOM_Y) {
+				dino_Y = DINO_BOTTOM_Y;
 				isBottom = true;
 			}
 
 			// 점프의 맨위를 찍으면 점프가 끝난 상황.
-			if (dinoY <= 3) isJumping = false;
+			if (dino_Y <= 3) isJumping = false;
 
 			// 선인장(장애물)이 왼쪽으로 (x음수) 가도록하고
 			// 선인장(장애물)의 위치가 왼쪽 끝으로가면 다시 오른쪽 끝으로 소환.
-			cactusX -= 2;
-			if (cactusX <= 0) cactusX = CACTUS_BOTTOM_X;
+			cactus_X -= 2;
+			if (cactus_X <= 0) cactus_X = CACTUS_BOTTOM_X;
 
-			DrawDino(dinoY);         // 공룡 그리기
-			DrawCactus(cactusX);     // 선인장 그리기
+			DrawDino(dino_Y);         // 공룡 그리기
+			DrawCactus(cactus_X);     // 선인장 그리기
 
 			curr = clock();         // 현재시간 받아오기
 			if (((curr - start) / CLOCKS_PER_SEC) >= 1) {   // 1초가 넘었을 경우...
@@ -95,8 +95,8 @@ int main() {
 
 			Sleep(60);               // Game Speed 설정
 			// system("cls")         // clear
-			ClearDino(dinoY);        // 공룡 지우기
-			ClearCactus(cactusX);    // 선인장(장애물) 지우기
+			ClearDino(dino_Y);        // 공룡 지우기
+			ClearCactus(cactus_X);    // 선인장(장애물) 지우기
 
 			SetColor(WHITE);
 			// 점수출력을 1초마다 해주는 것이 아니라 항상 출력 해주면서, 1초가 지났을때 ++ 해줍니다.
@@ -129,33 +129,33 @@ int GetKeyDown() {
 }
 
 // 충돌했으면 true, 아니면 false
-int IsCollision(const int cactusX, const int dinoY) {
+int IsCollision(const int cactus_X, const int dino_Y) {
 	// 트리의 X가 공룡의 몸체쪽에 있을때,
 	// 공룡의 높이가 충분하지 않다면 충돌로 처리
 	GotoXY(0, 0);
-	printf("cactusX : %2d, dinoY : %2d", cactusX, dinoY); // 이런식으로 적절한 X, Y를 찾습니다.
-	if (cactusX <= 8 && cactusX >= 2 && dinoY > 12) return true;
+	printf("cactusX : %2d, dinoY : %2d", cactus_X, dino_Y); // 이런식으로 적절한 X, Y를 찾습니다.
+	if (cactus_X <= 8 && cactus_X >= 2 && dino_Y > 12) return true;
 	return false;
 }
 
 //선인장을 그리는 함수
-void DrawCactus(int cactusX) {
+void DrawCactus(int cactus_X) {
 	SetColor(GREEN);
-	GotoXY(cactusX, CACTUS_BOTTOM_Y);
+	GotoXY(cactus_X, CACTUS_BOTTOM_Y);
 	printf("  $");
-	GotoXY(cactusX, CACTUS_BOTTOM_Y + 1);
+	GotoXY(cactus_X, CACTUS_BOTTOM_Y + 1);
 	printf("$ $  ");
-	GotoXY(cactusX, CACTUS_BOTTOM_Y + 2);
+	GotoXY(cactus_X, CACTUS_BOTTOM_Y + 2);
 	printf("$ $ $");
-	GotoXY(cactusX, CACTUS_BOTTOM_Y + 3);
+	GotoXY(cactus_X, CACTUS_BOTTOM_Y + 3);
 	printf("$$$$$");
-	GotoXY(cactusX, CACTUS_BOTTOM_Y + 4);
+	GotoXY(cactus_X, CACTUS_BOTTOM_Y + 4);
 	printf("  $  ");
 }
 
-void DrawDino(int dinoY) {
+void DrawDino(int dino_Y) {
 	SetColor(SKYBLUE);
-	GotoXY(0, dinoY);
+	GotoXY(0, dino_Y);
 	static int legFlag = true;
 	printf("        $$$$$$$ \n");		// 8, 7, 1
 	printf("       $$ $$$$$$\n");		// 7, 2, 1, 6
@@ -224,21 +224,21 @@ void DrawGameOver(const int score) {
 	system("cls");
 }
 
-void ClearDino(int dinoY) {
-	GotoXY(0, dinoY);
+void ClearDino(int dino_Y) {
+	GotoXY(0, dino_Y);
 	for (int i = 0; i < 12; i++) printf("                \n"); // 공백(스페이스바) 16개
 	printf("                ");  // 공백(스페이스바) 16개
 }
 
-void ClearCactus(int cactusX) {
+void ClearCactus(int cactus_X) {
 	for (int i = 0; i < 5; i++) {
-		GotoXY(cactusX, CACTUS_BOTTOM_Y + i);
+		GotoXY(cactus_X, CACTUS_BOTTOM_Y + i);
 		printf("     ");       // 공백(스페이스바) 5개
 	}
 }
-void InitializeGame(int* dinoY, int* cactusX, int* score) {
-	*dinoY = DINO_BOTTOM_Y;
-	*cactusX = CACTUS_BOTTOM_X;
+void InitializeGame(int* dino_Y, int* cactus_X, int* score) {
+	*dino_Y = DINO_BOTTOM_Y;
+	*cactus_X = CACTUS_BOTTOM_X;
 	*score = 0;
 }
 
