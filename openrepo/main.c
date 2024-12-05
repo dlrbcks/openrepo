@@ -101,8 +101,10 @@ int main() {
 			SetColor(WHITE);
 			// 점수출력을 1초마다 해주는 것이 아니라 항상 출력 해주면서, 1초가 지났을때 ++ 해줍니다.
 			// 커서를 가운데 위쪽으로 옮긴다. 콘솔창이 cols=100 이니까 2*x이므로 22정도 넣어줌
-			GotoXY(22, 0); printf("Score : %d ", score);     // 점수 출력해줌.
-			GotoXY(20, 2); printf("점프 : Space Key");
+			GotoXY(22, 0); 
+			printf("Score : %d ", score);     // 점수 출력해줌.
+			GotoXY(20, 2); 
+			printf("점프 : Space Key");
 		}
 		// 게임 오버 메뉴
 		DrawGameOver(score);
