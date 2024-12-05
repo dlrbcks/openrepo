@@ -62,7 +62,7 @@ int main() {
 			// Space키가 눌렸고, 바닥이 아닐때 점프
 			// Space Key ASCII : 32
 			if (GetKeyDown() == ' ' && isBottom) {
-				isJumping = true;
+				isJumping = true; // 점프시작
 				isBottom = false;
 			}
 
@@ -249,3 +249,5 @@ void UpdateScore(clock_t* start, clock_t* curr, int* score) {
 		*start = clock();
 	}
 }
+
+
