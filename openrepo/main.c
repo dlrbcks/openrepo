@@ -104,7 +104,7 @@ int main() {
 			GotoXY(22, 0); 
 			printf("Score : %d ", score);     // 점수 출력해줌.
 			GotoXY(20, 2); 
-			printf("점프 : Space Key");
+			printf("점프 : Space Key"); // 기능키
 		}
 		// 게임 오버 메뉴
 		DrawGameOver(score);
