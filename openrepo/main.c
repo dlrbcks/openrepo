@@ -66,15 +66,24 @@ int main() {
 				isBottom = false;
 			}
 
-			// 점프중이라면 Y를 감소, 점프가 끝났으면 Y를 증가.
-			if (isJumping) dino_Y -= gravity;
-			else dino_Y += gravity;
+			// 기존 점프 로직에서 최고점 조정
 
-			// Y가 계속해서 증가하는걸 막기위해 바닥을 지정.
+			if (isJumping) {
+				dino_Y -= gravity;  // 점프 중 위로
+				if (dino_Y <= 3) {  // 점프 최고점 도달
+					isJumping = false;  // 최고점에 도달하면 내려가도록
+				}
+			}
+			else {
+				dino_Y += gravity;  // 점프 후 중력에 의해 아래로
+			}
+
+			// 바닥에 닿으면 더 이상 내려가지 않음
 			if (dino_Y >= DINO_BOTTOM_Y) {
-				dino_Y = DINO_BOTTOM_Y;
+				dino_Y = DINO_BOTTOM_Y;  // 바닥에 고정
 				isBottom = true;
 			}
+
 
 			// 점프의 맨위를 찍으면 점프가 끝난 상황.
 			if (dino_Y <= 3) isJumping = false;
