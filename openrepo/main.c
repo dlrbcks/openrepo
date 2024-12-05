@@ -224,19 +224,23 @@ void DrawGameOver(const int score) {
 	system("cls");
 }
 
-void ClearDino(int dino_y) {
-	for (int i = 0; i < 12; i++) {
-		GotoXY(0, dino_y + i);
-		printf("                ");
+// Clear 함수는 기존의 전체 화면 지우기를 최소화하도록 수정합니다.
+
+void ClearDino(int dinoY) {
+	// 공룡이 위치한 곳만 지우도록 변경
+	GotoXY(0, dinoY);
+	for (int i = 0; i < 12; i++) printf("                \n");
+}
+
+void ClearCactus(int cactusX) {
+	// 장애물만 지우도록 수정
+	for (int i = 0; i < 5; i++) {
+		GotoXY(cactusX, CACTUS_BOTTOM_Y + i);
+		printf("     "); // 장애물 지우기
 	}
 }
 
-void ClearCactus(int cactus_X) {
-	for (int i = 0; i < 5; i++) {
-		GotoXY(cactus_X, CACTUS_BOTTOM_Y + i);
-		printf("     ");       // 공백(스페이스바) 5개
-	}
-}
+
 void InitializeGame(int* dino_Y, int* cactus_X, int* score) {
 	*dino_Y = DINO_BOTTOM_Y;
 	*cactus_X = CACTUS_BOTTOM_X;
