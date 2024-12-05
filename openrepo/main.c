@@ -206,23 +206,17 @@ void SetConsoleView() {
 
 // 충돌 했을때 게임오버 그려줌
 void DrawGameOver(const int score) {
-	// 화면을 청소 함, cls : Clean Screen의 약자.
-	system("cls"); SetColor(YELLOW);
-	int x = 22, y = 8;
-	GotoXY(x, y);
-
-	printf("===================================");
-	GotoXY(x, y + 1);
-	printf("==========G A M E O V E R==========");
-	GotoXY(x, y + 2);
-	printf("===================================");
-	GotoXY(x, y + 5);
-	printf("SCORE : %d", score);
-
-	printf("\n\n\n\n\n\n\n\n\n");
+	system("cls");
+	SetColor(YELLOW);
+	GotoXY(22, 8);
+	printf("========== GAME OVER ==========");
+	GotoXY(22, 10);
+	printf("Score: %d", score);
+	printf("\nPress any key to restart...");
 	system("pause");
 	system("cls");
 }
+
 
 // Clear 함수는 기존의 전체 화면 지우기를 최소화하도록 수정합니다.
 
